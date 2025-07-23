@@ -5,17 +5,22 @@ const app = express();
 const PORT = 3000;
 
 app.use(session({
-  secret: Math.random().toString(36).substring(2),
+  secret: process.env.SESSION_SECRET || 'fallback-secret',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { maxAge: 3600000 } // 1 hour
 }));
 
 // Mount HubSpot routes under /hubspot
 app.use('/hubspot', require('./hubspot/routes'));
+// Mount Pipedrive routes under /pipedrive
+app.use('/pipedrive', require('./pipedrive/routes'));
 
 // Root page
 app.get('/', (req, res) => {
-  res.send('<h2>Migratio Home</h2><a href="/hubspot">Go to HubSpot Integration</a>');
+  res.send('<h2>Migratio Home</h2>' +
+    '<a href="/hubspot">Go to HubSpot Integration</a><br/>' +
+    '<a href="/pipedrive">Go to Pipedrive Integration</a>');
 });
 
 // Error page
