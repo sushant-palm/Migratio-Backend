@@ -3,7 +3,7 @@ const NodeCache = require('node-cache');
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const SCOPES = `crm.objects.contacts.read crm.objects.contacts.write crm.schemas.contacts.read oauth tickets crm.schemas.deals.write crm.schemas.deals.read crm.objects.deals.read crm.objects.deals.write`;
+const SCOPES = process.env.SCOPE || 'crm.objects.contacts.read crm.objects.contacts.write crm.schemas.contacts.read oauth tickets crm.schemas.deals.write crm.schemas.deals.read crm.objects.deals.read crm.objects.deals.write';
 const REDIRECT_URI = process.env.HUBSPOT_REDIRECT_URI || `http://localhost:3000/hubspot/oauth-callback`;
 
 const accessTokenCache = new NodeCache({ deleteOnExpire: true });
