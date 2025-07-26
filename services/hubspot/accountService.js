@@ -1,12 +1,8 @@
 const request = require('request-promise-native');
 
-async function getPortalInfo(accessToken) {
+exports.getPortalInfo = async function(accessToken) {
   return await request.get('https://api.hubapi.com/integrations/v1/me', {
     headers: { Authorization: `Bearer ${accessToken}` },
     json: true
   });
-}
-
-module.exports = {
-  getPortalInfo
 };
